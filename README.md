@@ -3,18 +3,22 @@
 ### --StrokeSegmentation
 笔画分割模型
 
---- data 数据集部分
-|     |
-|     |--- asset 静态资源
-|     |--- input_img 输入残留，无用
-|     |--- output_img 数据集
-|     |--- tools 存放工具函数
-|     filter.py 提纯、优化input_img到output_img
-|
---- essay_pic 一些可能会放到文章中的图片
-|
-|
---- models 训练后的模型参数保存目录
-|
-|
---- src 模型训练代码（未完成，还不可用）
+### `data` 目录
+
+- `asset`: 存放项目所需的静态资源。
+- `input_img`: 存放输入图像，目前认为是残留和无用的。
+- `output_img`: 存放处理后的数据集图像。
+- `tools`: 存放用于数据处理的工具函数。
+- `filter.py`: 脚本用于提纯和优化从`input_img`到`output_img`的图像。
+
+## 文章图片
+
+- `essay_pic`: 存放可能会在文章中使用的图片。
+
+## 模型参数
+
+- `models`: 目录用于保存训练后的模型参数。
+
+## 模型训练代码
+
+- `src`: 包含模型训练的代码，目前状态为未完成，还不可用。
