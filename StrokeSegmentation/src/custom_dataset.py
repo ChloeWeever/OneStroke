@@ -7,12 +7,18 @@ from torchvision import transforms
 
 
 class SegmentationDataset(Dataset):
-    def __init__(self, images_dir, masks_dir, transform=None, image_size=(500, 500)):
-        self.images_dir = images_dir
-        self.masks_dir = masks_dir
+    def __init__(self, val=False, transform=None, image_size=(500, 500)):
         self.transform = transform
         self.image_size = image_size
-        self.images = [f for f in os.listdir(images_dir) if f.endswith('.png') or f.endswith('.jpg')]
+        self.images = []
+        for i in range(0, 20):
+            if not val:
+                for j in range(0, 10):
+                    self.images.append(f"../data/output_img/{i}/{j}/0.jpg")
+            else:
+                for j in range(10, 15):
+                    self.images.append(f"../data/output_img/{i}/{j}/0.jpg")
+
 
         # 基本转换
         self.base_transform = transforms.Compose([
@@ -24,15 +30,15 @@ class SegmentationDataset(Dataset):
         return len(self.images)
 
     def __getitem__(self, idx):
-        img_name = self.images[idx]
-        img_path = os.path.join(self.images_dir, img_name)
-        mask_path = os.path.join(self.masks_dir, img_name.replace('.jpg', '.npy').replace('.png', '.npy'))
+        img_name = '0.jpg'
+        img_path = self.images[idx]
+        mask_path = img_path.replace('.jpg', '.npy')
 
         # 加载图像
         image = Image.open(img_path).convert('RGB')
         image = self.base_transform(image)
 
-        # 加载mask (500x500x11的numpy数组)
+        # 加载mask (500x500x6的numpy数组)
         mask = np.load(mask_path)
         assert mask.shape == (500, 500, 6), f"Mask形状应为(500,500,6)，但得到{mask.shape}"
         mask = torch.from_numpy(mask).permute(2, 0, 1).float()  # 转为CHW格式
@@ -41,5 +47,3 @@ class SegmentationDataset(Dataset):
             image = self.transform(image)
 
         return image, mask
-
-

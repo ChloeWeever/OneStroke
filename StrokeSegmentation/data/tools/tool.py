@@ -66,6 +66,12 @@ if __name__ == '__main__':
             save_path = f'../output_img/{i}/{j}/mask_key_point.npy'
             np.save(save_path, mask_key)
 
+            masks.append(mask_key)
+            mask_500x500x6 = np.stack(masks, axis=-1)
+            save_path = f'../output_img/{i}/{j}/0.npy'
+            np.save(save_path, mask_500x500x6)
+            masks.pop()
+
             for idx, mask in enumerate(masks, start=1):
                 save_path = f'../output_img/{i}/{j}/mask_{idx}.npy'
                 np.save(save_path, mask)
@@ -90,3 +96,4 @@ if __name__ == '__main__':
             save_path = f'../output_img/{i}/{j}/mask_img.jpg'
             plt.savefig(save_path, bbox_inches='tight', pad_inches=0)
             plt.close(fig)
+

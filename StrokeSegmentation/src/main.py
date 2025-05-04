@@ -1,3 +1,5 @@
+import os
+
 import torch
 import torch.nn as nn
 from torch import optim
@@ -20,7 +22,8 @@ def main():
     }
 
     # 设备配置
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    device = torch.device("mps")
 
     # 数据转换
     data_transforms = {
@@ -35,15 +38,13 @@ def main():
 
     # 创建数据集
     train_dataset = SegmentationDataset(
-        images_dir='data/train/images',
-        masks_dir='data/train/masks',
+        val=False,
         transform=data_transforms['train'],
         image_size=config['image_size']
     )
 
     val_dataset = SegmentationDataset(
-        images_dir='data/val/images',
-        masks_dir='data/val/masks',
+        val=True,
         transform=data_transforms['val'],
         image_size=config['image_size']
     )
@@ -88,7 +89,7 @@ def main():
     trained_model = trainer.train(train_loader, val_loader, num_epochs=config['num_epochs'])
 
     # 保存模型
-    torch.save(trained_model.state_dict(), 'unet_model.pth')
+    torch.save(trained_model.state_dict(), '../models/unet_model.pth')
     print("Model saved as 'unet_model.pth'")
 
 
