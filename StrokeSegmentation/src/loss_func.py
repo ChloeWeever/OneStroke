@@ -14,7 +14,8 @@ class WeightedBCEWithLogitsLoss(nn.Module):
         """
         # 计算每个像素的权重：[B, H, W]
         num_ones = targets.sum(dim=1)  # 统计每个像素的1的数量
-        weights = (num_ones + self.base_weight).unsqueeze(1)  # 增加通道维 [B,1,H,W]
+        # weights = (num_ones + self.base_weight).unsqueeze(1)  # 增加通道维 [B,1,H,W]
+        weights = (num_ones.float().pow(2) + 1).unsqueeze(1)
 
         # 计算基础BCE损失（不降维）
         loss = F.binary_cross_entropy_with_logits(

@@ -36,7 +36,7 @@ class UNetPredictor:
 
 if __name__ == '__main__':
     print(f"Working directory: {os.getcwd()}")
-    predictor = UNetPredictor('../models/unet_model_1.pth')
+    predictor = UNetPredictor('../models/unet_model.pth')
     result = predictor.predict('test.jpg')
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组

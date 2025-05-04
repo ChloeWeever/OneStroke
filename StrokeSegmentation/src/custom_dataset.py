@@ -13,10 +13,10 @@ class SegmentationDataset(Dataset):
         self.images = []
         for i in range(0, 20):
             if not val:
-                for j in range(0, 10):
+                for j in range(0, 15):
                     self.images.append(f"../data/output_img/{i}/{j}/0.jpg")
             else:
-                for j in range(10, 15):
+                for j in range(15, 19):
                     self.images.append(f"../data/output_img/{i}/{j}/0.jpg")
 
 
