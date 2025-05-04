@@ -5,6 +5,8 @@ import torch.nn as nn
 from torch import optim
 from torch.utils.data import DataLoader
 from torchvision import transforms
+
+from src.loss_func import WeightedBCEWithLogitsLoss
 from unet_model import UNet
 from custom_dataset import SegmentationDataset
 from model_trainer import UNetTrainer
@@ -72,7 +74,8 @@ def main():
     ).to(device)
 
     # 定义损失函数和优化器
-    criterion = nn.BCEWithLogitsLoss()
+    #criterion = nn.BCEWithLogitsLoss()
+    criterion = WeightedBCEWithLogitsLoss(base_weight=1.0)
     optimizer = optim.Adam(model.parameters(), lr=config['learning_rate'])
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, 'min', patience=2)
 

@@ -36,12 +36,13 @@ class UNetPredictor:
 
 if __name__ == '__main__':
     print(f"Working directory: {os.getcwd()}")
-    predictor = UNetPredictor('../models/unet_model.pth')
+    predictor = UNetPredictor('../models/unet_model_1.pth')
     result = predictor.predict('test.jpg')
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组
+    print(len(result))
     for i in range(6):
-        mask = result[:, :, i]  # 取第一个类别 (500, 500)
+        mask = result[:, :, i]  # 取第i个类别 (500, 500)
         # 将 0/1 转换为 0~255 的像素值（0 -> 黑色，1 -> 白色）
         mask_image = (mask * 255).astype(np.uint8)
         # 转换为图像并保存
