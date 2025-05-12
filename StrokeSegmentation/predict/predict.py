@@ -41,8 +41,20 @@ if __name__ == '__main__':
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组
     print(len(result))
+
+    img = Image.open('test.jpg').convert('RGB')
+    img_array = np.array(img)
+
+    if img_array.shape[:2] != (500, 500):
+        img = img.resize((500, 500))
+        img_array = np.array(img)
+
+    white_pixels = np.all(img_array >= 240, axis=-1)
+    mask_o = np.where(white_pixels, 0, 1).astype(np.uint8)
+
     for i in range(6):
         mask = result[:, :, i]  # 取第i个类别 (500, 500)
+        mask = np.logical_and(mask, mask_o)
         # 将 0/1 转换为 0~255 的像素值（0 -> 黑色，1 -> 白色）
         mask_image = (mask * 255).astype(np.uint8)
         # 转换为图像并保存
