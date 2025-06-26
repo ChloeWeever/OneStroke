@@ -2,7 +2,7 @@ import os
 import cv2
 import numpy as np
 from PIL import Image
-from data.asset.stroke_vector_mapping import STROKE_VECTOR_MAP
+from asset.stroke_vector_mapping import *
 import matplotlib.pyplot as plt  # 新增导入
 
 

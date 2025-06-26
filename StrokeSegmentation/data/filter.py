@@ -122,32 +122,34 @@ def process_image_to_binary(image_path, output_path=None, white_threshold=200):
 
 
 def process_all_image(prefix, start_index,
-                      stroke_num=[5, 6, 4, 4, 11, 11, 8, 5, 4, 6, 4, 7, 4, 7, 4, 5, 4, 8, 8, 16, ]):
+                      stroke_num=[5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6, ]):
     now = start_index
     for i in range(0, len(stroke_num)):
         if now < 1000:
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}0{now}.JPG", "tmp.jpg")
         else:
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG", "tmp.jpg")
-        directory = os.path.dirname(f"data/output_img/{i}/")
+        directory = os.path.dirname(f"data/output_img/{i+20}/")
         if not os.path.exists(directory):
             os.makedirs(directory)
-        n = get_directory_count(f"data/output_img/{i}/")
-        directory = os.path.dirname(f"data/output_img/{i}/{n}/")
+        n = get_directory_count(f"data/output_img/{i+20}/")
+        directory = os.path.dirname(f"data/output_img/{i+20}/{n}/")
         os.makedirs(directory)
-        process_image_to_binary("tmp.jpg", f"data/output_img/{i}/{n}/0.jpg")
+        process_image_to_binary("tmp.jpg", f"data/output_img/{i+20}/{n}/0.jpg")
         now += 1
         if now == 4000:
             now += 1
         for k in range(0, stroke_num[i]):
-            if now == 1000:
+            if now % 1000 == 0:
+                now += 1
+            if now == 6647:
                 now += 1
             if now < 1000:
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}0{now}.JPG",
-                                                   f"data/output_img/{i}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i+20}/{n}/{k + 1}.jpg")
             else:
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG",
-                                                   f"data/output_img/{i}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i+20}/{n}/{k + 1}.jpg")
             now += 1
             if now == 4000:
                 now += 1
@@ -155,9 +157,9 @@ def process_all_image(prefix, start_index,
 
 # 使用示例
 if __name__ == "__main__":
-    name_strokes = [7, 14, 8]
-    strokes = [5, 6, 4, 4, 11, 11, 8, 5, 4, 6, 4, 7, 4, 7, 4, 5, 4, 8, 8, 16] + name_strokes
-    process_all_image("IMG_", 4653, strokes)
+    name_strokes = []
+    strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes    # 163
+    process_all_image("IMG_", 6570, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
