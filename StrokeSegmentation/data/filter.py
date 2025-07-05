@@ -126,7 +126,10 @@ def process_all_image(prefix, start_index,
     now = start_index
     for i in range(0, len(stroke_num)):
         if now < 1000:
-            filter_colors_and_mark_red_centers(f"data/input_img/{prefix}0{now}.JPG", "tmp.jpg")
+            filler = ''
+            for j in range(0, 4 - len(str(now))):
+                filler += '0'
+            filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG", "tmp.jpg")
         else:
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG", "tmp.jpg")
         directory = os.path.dirname(f"data/output_img/{i+20}/")
@@ -145,7 +148,10 @@ def process_all_image(prefix, start_index,
             if now == 6647:
                 now += 1
             if now < 1000:
-                filter_colors_and_mark_red_centers(f"data/input_img/{prefix}0{now}.JPG",
+                filler = ''
+                for j in range(0, 4 - len(str(now))):
+                    filler += '0'
+                filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG",
                                                    f"data/output_img/{i+20}/{n}/{k + 1}.jpg")
             else:
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG",
@@ -159,7 +165,7 @@ def process_all_image(prefix, start_index,
 if __name__ == "__main__":
     name_strokes = []
     strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes    # 163
-    process_all_image("IMG_", 6570, strokes)
+    process_all_image("IMG_", 692, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
