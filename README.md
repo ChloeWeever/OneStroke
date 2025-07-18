@@ -4,7 +4,8 @@
 
 ```
 OneStroke/
-├── StrokeSegmentation/       # 笔画分割模型训练与预测
+├── OtherResource/             # 一些相关的文档
+├── StrokeSegmentation/        # 笔画分割模型训练与预测
 │   ├── data/                  # 数据集与工具
 │   ├── essay_pic/             # 文章中使用的图片
 │   ├── predict/               # 模型预测代码
