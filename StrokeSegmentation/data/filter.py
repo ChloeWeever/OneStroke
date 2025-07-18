@@ -132,13 +132,13 @@ def process_all_image(prefix, start_index,
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG", "tmp.jpg")
         else:
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG", "tmp.jpg")
-        directory = os.path.dirname(f"data/output_img/{i+20}/")
+        directory = os.path.dirname(f"data/output_img/{i + 20}/")
         if not os.path.exists(directory):
             os.makedirs(directory)
-        n = get_directory_count(f"data/output_img/{i+20}/")
-        directory = os.path.dirname(f"data/output_img/{i+20}/{n}/")
+        n = get_directory_count(f"data/output_img/{i + 20}/")
+        directory = os.path.dirname(f"data/output_img/{i + 20}/{n}/")
         os.makedirs(directory)
-        process_image_to_binary("tmp.jpg", f"data/output_img/{i+20}/{n}/0.jpg")
+        process_image_to_binary("tmp.jpg", f"data/output_img/{i + 20}/{n}/0.jpg")
         now += 1
         if now == 4000:
             now += 1
@@ -152,10 +152,10 @@ def process_all_image(prefix, start_index,
                 for j in range(0, 4 - len(str(now))):
                     filler += '0'
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG",
-                                                   f"data/output_img/{i+20}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i + 20}/{n}/{k + 1}.jpg")
             else:
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG",
-                                                   f"data/output_img/{i+20}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i + 20}/{n}/{k + 1}.jpg")
             now += 1
             if now == 4000:
                 now += 1
@@ -163,15 +163,17 @@ def process_all_image(prefix, start_index,
 
 # 使用示例
 if __name__ == "__main__":
+    # 打印工作路径
+    print("path: " + os.getcwd())
     name_strokes = []
-    strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes    # 163
-    process_all_image("IMG_", 692, strokes)
+    strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes  # 163
+    process_all_image("IMG_", 3019, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
     #     if os.path.exists(dir):
     #         os.rename(dir, f"data/input_img/IMG_{i + 1}.JPG")
     #     i -= 1
-    #for i in range(0, 22):
+    # for i in range(0, 22):
     #    if os.path.exists(f"data/output_img/{i}/18"):
     #        shutil.rmtree(f"data/output_img/{i}/18")
