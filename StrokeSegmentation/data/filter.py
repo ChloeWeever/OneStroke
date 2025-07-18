@@ -167,7 +167,7 @@ if __name__ == "__main__":
     print("path: " + os.getcwd())
     name_strokes = []
     strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes  # 163
-    process_all_image("IMG_", 3019, strokes)
+    process_all_image("IMG_", 3536, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
