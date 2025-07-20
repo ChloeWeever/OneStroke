@@ -6,7 +6,7 @@ from torch import optim
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from src.loss_func import WeightedBCEWithLogitsLoss
+from loss_func import WeightedBCEWithLogitsLoss
 from unet_model import UNet
 from custom_dataset import SegmentationDataset
 from model_trainer import UNetTrainer
