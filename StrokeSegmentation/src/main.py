@@ -1,3 +1,4 @@
+
 import os
 
 import torch
@@ -6,7 +7,7 @@ from torch import optim
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from src.loss_func import WeightedBCEWithLogitsLoss
+from loss_func import WeightedBCEWithLogitsLoss
 from unet_model import UNet
 from custom_dataset import SegmentationDataset
 from model_trainer import UNetTrainer
@@ -17,15 +18,15 @@ def main():
     config = {
         'image_size': (500, 500),
         'batch_size': 4,
-        'num_epochs': 25,
+        'num_epochs': 50,
         'learning_rate': 0.001,
         'num_classes': 6,
         'bilinear': True
     }
 
     # 设备配置
-    # device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    device = torch.device("mps")
+    device = torch.device("cuda:0")
+    # device = torch.device("mps")
 
     # 数据转换
     data_transforms = {
@@ -97,4 +98,5 @@ def main():
 
 
 if __name__ == '__main__':
+    print("path: " + os.getcwd())
     main()

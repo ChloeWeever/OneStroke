@@ -43,7 +43,7 @@ class WeightedBCEWithLogitsLoss(nn.Module):
         weights = (feature_weights + contour_weights) ** 2
 
         # 归一化权重
-        weights = (weights - weights.min()) / (weights.max() - weights.min() + 1e-10)
+        weights = 2 * (weights - weights.min()) / (weights.max() - weights.min() + 1e-10)
 
         weights = weights.unsqueeze(1)  # [B, 1, H, W]
 

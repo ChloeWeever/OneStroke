@@ -3,7 +3,7 @@ import os
 import torch
 from torchvision import transforms
 from PIL import Image
-from src.unet_model import UNet
+from StrokeSegmentation.src.unet_model import UNet
 import numpy as np
 
 
@@ -36,14 +36,21 @@ class UNetPredictor:
 
 if __name__ == '__main__':
     print(f"Working directory: {os.getcwd()}")
+
+
+    img = Image.open('test.jpg').convert('RGB')
+    # 颜色取反
+    # img = img.point(lambda x: 255 - x)
+    # 保存
+    # img.save('inverted_image.jpg')
+    # img = Image.open('inverted_image.jpg').convert('RGB')
+    img_array = np.array(img)
+
     predictor = UNetPredictor('../models/unet_model.pth')
     result = predictor.predict('test.jpg')
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组
     print(len(result))
-
-    img = Image.open('test.jpg').convert('RGB')
-    img_array = np.array(img)
 
     if img_array.shape[:2] != (500, 500):
         img = img.resize((500, 500))
@@ -52,16 +59,34 @@ if __name__ == '__main__':
     white_pixels = np.all(img_array >= 240, axis=-1)
     mask_o = np.where(white_pixels, 0, 1).astype(np.uint8)
 
+    # 原始图像
+    img_array = np.array(img)  # (500, 500, 3)
+
+    # 每个预测通道保存为灰度图
+    result_images = []
     for i in range(6):
-        mask = result[:, :, i]  # 取第i个类别 (500, 500)
+        mask = result[:, :, i]  # (500, 500)
         mask = np.logical_and(mask, mask_o)
-        # 将 0/1 转换为 0~255 的像素值（0 -> 黑色，1 -> 白色）
         mask_image = (mask * 255).astype(np.uint8)
-        # 转换为图像并保存
-        img = Image.fromarray(mask_image, mode='L')  # 'L' 表示灰度图
+        result_images.append(mask_image)
+
+        # 保存
+        img = Image.fromarray(mask_image, mode='L')
         img.save(f'prediction_class_{i}.png')
-        if (i == 5):
-            for x in range(500):
-                for y in range(500):
-                    if mask[x, y] == 1:
-                        print(x, y)
+
+    # 将所有预测图堆叠成 (500, 500, 6) -> (500, 500, 1) x6 -> 拼接为 (500, 600, 3)
+    # 方法一：横向拼接（6张预测图 + 原图）—— 每张预测图宽度为 500
+    stacked = np.zeros((500, 500 * 7, 3), dtype=np.uint8)  # (500, 4000, 3)
+
+    # 放入原图
+    stacked[:, :500, :] = img_array
+
+    # 放入6张预测图（每张扩展为3通道）
+    for i, mask_image in enumerate(result_images):
+        # 扩展为3通道
+        mask_3channel = np.repeat(mask_image[:, :, np.newaxis], 3, axis=2)  # (500, 500, 3)
+        stacked[:, 500 + i * 500: 500 + (i + 1) * 500, :] = mask_3channel
+
+    # 保存拼接图
+    Image.fromarray(stacked).save('output_combined.png')
+    print("Combined image saved as 'output_combined.png'")

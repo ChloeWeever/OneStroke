@@ -11,7 +11,7 @@ class SegmentationDataset(Dataset):
         self.transform = transform
         self.image_size = image_size
         self.images = []
-        for i in range(0, 20):
+        for i in range(0, 40):
             if not val:
                 for j in range(0, 15):
                     self.images.append(f"../data/output_img/{i}/{j}/0.jpg")
