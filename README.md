@@ -1,5 +1,9 @@
 # OneStroke
 
+## Essay
+
+Our Essay is here: [https://cn.overleaf.com/read/jqbctgwzncwh#874c3d](https://cn.overleaf.com/read/jqbctgwzncwh#874c3d), not finished.
+
 ## 项目结构
 
 ```
