@@ -1,0 +1,63 @@
+﻿from typing import Optional, Callable, Union
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from StrokeSegmentation.predict.predict import UNetPredictor
+from evaluate import Evaluator
+from pathlib import Path
+
+
+def plot_accuracy(weight_path: Optional[Union[str, Path, object]] = None, predict_fn: Optional[Callable[[Union[str, Path], float], np.ndarray]] = None):
+    evaluator = Evaluator()
+    accuracies = []
+    style_accuracies = []
+    char_ids = range(40)  # 字符编号 0-39
+
+    for char_id in char_ids:
+        for i in (18, 19):
+            ture_mask_path = Path(f"../data/output_img/{char_id}/{i}")
+            result_path = Path(f"../data/output_img/{char_id}/{i}/0.jpg")
+
+            try:
+                accuracy = evaluator.main(ture_mask_path, weight_path, result_path, threshold=0.5, predict_fn=model.predict)
+                accuracies.append(accuracy['total_accuracy'])
+                print(f"Character {char_id} accuracy: {accuracy['total_accuracy']:.2f}%")
+            except Exception as e:
+                print(f"Error processing character {char_id}: {str(e)}")
+                accuracies.append(0)  # 出错时记为0
+
+        mean_accuracy = np.mean(accuracies)
+        style_accuracies.append(mean_accuracy)
+        accuracies.clear()
+    # 计算平均准确率
+    mean_style_accuracy = np.mean(style_accuracies)
+
+    random_accuracies = []
+    for char_id in (40, 41, 42):
+        for i in range(18):
+            ture_mask_path = Path(f"../data/output_img/{char_id}/{i}")
+            result_path = Path(f"../data/output_img/{char_id}/{i}/0.jpg")
+
+            try:
+                accuracy = evaluator.main(ture_mask_path, model_path, result_path, threshold=0.5)
+                accuracies.append(accuracy['total_accuracy'])
+                print(f"Character {char_id} accuracy: {accuracy['total_accuracy']:.2f}%")
+            except Exception as e:
+                print(f"Error processing character {char_id}: {str(e)}")
+                accuracies.append(0)  # 出错时记为0
+
+        mean_accuracy = np.mean(accuracies)
+        random_accuracies.append(mean_accuracy)
+        accuracies.clear()
+        # 计算平均准确率
+    mean_random_accuracy = np.mean(style_accuracies)
+
+    print(f"Mean style accuracy: {mean_style_accuracy:.2f}%")
+    print(f"Mean random accuracy: {mean_random_accuracy:.2f}%")
+
+
+if __name__ == "__main__":
+    model_path = Path("../models/model_5coder/unet_model.pth")
+    model = UNetPredictor(model_path)
+    plot_accuracy(model_path, model.predict)
