@@ -1,0 +1,33 @@
+# CDP (Coherent Point Drift) 算法配置参数
+
+# 算法基本参数
+algorithm:
+  max_iterations: 150        # 最大迭代次数
+  tolerance: 1e-6           # 收敛阈值
+  beta: 1.5                 # 平滑参数，控制变形程度
+  lambda_param: 2.0         # 正则化参数
+  outliers_ratio: 0.05      # 离群点比例（0-1之间）
+  
+# 特征点匹配参数
+matching:
+  min_confidence: 0.5       # 最小置信度阈值，用于过滤低质量关键点
+  max_distance: 50.0        # 最大匹配距离阈值（像素）
+  min_matches: 3           # 最小匹配点对数量
+
+# 数据预处理参数
+preprocessing:
+  normalize: true           # 是否进行坐标归一化
+  scale_factor: 1.0        # 坐标缩放因子
+  remove_duplicates: true   # 是否移除重复点
+
+# 计算设备配置
+compute:
+  use_gpu: true           # 是否使用GPU加速
+  device: "cuda"            # 计算设备："cpu" 或 "cuda"
+  precision: "float32"     # 数值精度："float32" 或 "float64"
+
+# 调试配置
+debug:
+  verbose: true            # 是否打印详细日志
+  save_intermediate: false  # 是否保存中间结果
+  visualization: true      # 是否启用可视化

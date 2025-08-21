@@ -1,0 +1,32 @@
+# 推理配置文件
+
+# 模型路径配置
+models:
+  # SRN模型路径
+  srn_model_path: 'models/srn_resnet101.pth'
+  # 回归器模型路径
+  regressor_model_path: 'models/aesthetic_regressor.txt'
+
+# 设备配置 (cuda/cpu)
+device: 'cuda'
+
+# 数据预处理配置
+preprocessing:
+  # 二值化阈值
+  threshold: 127
+  # 最小连通区域面积
+  min_area: 50
+
+# 图像配准配置
+registration:
+  # 目标图像尺寸
+  target_size: 500
+
+# 特征提取配置
+features:
+  # 手工特征维度
+  num_handcrafted: 12
+  # 深度特征维度
+  num_deep: 10
+  # 融合特征维度
+  num_fused: 23
