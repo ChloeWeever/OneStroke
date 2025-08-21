@@ -1,0 +1,47 @@
+# Faster R-CNN 训练配置文件
+
+# 模型配置
+model:
+  backbone: 'resnet50'
+  fpn: true
+  pretrained: true
+  num_classes: 2  # 根据实际类别数调整（包括背景）
+
+# 训练配置
+train:
+  batch_size: 2
+  learning_rate: 0.00025
+  max_iterations: 3000
+  checkpoint_period: 100
+  eval_period: 100
+  
+# 数据集配置
+dataset:
+  train_dataset_name: 'voc_train'
+  val_dataset_name: 'voc_val'
+  data_dir_env: 'DATASET_ROOT'  # 环境变量名，用于获取数据集根目录
+  # VOC数据集配置
+  voc_root: 'VOCdevkit'  # VOCdevkit文件夹名
+  voc_years: ['VOC2007', 'VOC2012']  # VOC年份
+  # ImageSets相对路径
+  train_imagesets: 'ImageSets/Main/trainval.txt'  # 使用trainval数据进行训练
+  val_imagesets: 'ImageSets/Main/test.txt'  # 使用test数据进行验证
+  # 数据目录结构
+  annotations_subdir: 'Annotations'  # XML标注文件目录
+  images_subdir: 'JPEGImages'  # 图像文件目录
+  
+# 数据加载配置
+dataloader:
+  num_workers: 2
+  
+# 输出配置
+output:
+  output_dir: 'code/faster_RCNN_Detectron/output'
+  model_save_dir: 'models'
+  
+# 其他配置
+solver:
+  ims_per_batch: 2
+  base_lr: 0.00025
+  step_size: 1000
+  gamma: 0.1
