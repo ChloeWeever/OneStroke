@@ -146,7 +146,7 @@ class Evaluator(nn.Module):
                 continue
             other_pred_np_list.append(pred_np[j] > 0.5)
 
-            # 为每个真实连通域找到对应的预测连通域
+        # 为每个真实连通域找到对应的预测连通域
         for true_label, true_comp_mask_uint8 in true_components:
             true_comp_mask = true_comp_mask_uint8.astype(bool)
             area_true = true_comp_mask.sum()
@@ -414,3 +414,4 @@ if __name__ == '__main__':
     print("\n笔画类权重分布:")
     for i, weight in enumerate(accuracy_result["class_weights"], 1):
         print(f"v{i}: {weight:.2%}")
+
