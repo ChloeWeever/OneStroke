@@ -198,7 +198,7 @@ class Evaluator(nn.Module):
 
                 # 3. 按照算法公式计算准确率
                 comp_score = 100.0 * (
-                        P_i_k * base_accuracy +
+                        P_i_k * (base_accuracy ** 2)+
                         (1 - self.validity_threshold * P_i_k) * base_accuracy
                 )
 
@@ -414,4 +414,5 @@ if __name__ == '__main__':
     print("\n笔画类权重分布:")
     for i, weight in enumerate(accuracy_result["class_weights"], 1):
         print(f"v{i}: {weight:.2%}")
+
 
