@@ -1,0 +1,31 @@
+# 操作系统文件
+.DS_Store
+.DS_Store?
+
+# IDE配置文件
+.idea/
+.vscode/
+
+# 缓存文件
+__pycache__/
+
+# 环境和依赖
+.venv/
+StrokeSegmentation/.venv
+
+# Flutter项目相关
+app/.metadata
+app/ios/Pods/
+app/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+app/ios/build/
+app/build/
+app/.dart_tool/
+app/pubspec.lock
+
+stroke_collector/.metadata
+stroke_collector/ios/Pods/
+stroke_collector/ios/Runner.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+stroke_collector/ios/build/
+stroke_collector/build/
+stroke_collector/.dart_tool/
+stroke_collector/pubspec.lock
