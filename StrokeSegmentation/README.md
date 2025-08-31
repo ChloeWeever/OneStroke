@@ -10,7 +10,7 @@ This is the project for stroke segmentation.
 pip install uv
 ```
 
-2. Install torch for your cuda version
+2. Install torch for your cuda version(skip to step 3 if you don't need to train model)
 
 - check your cuda version
 ```bash
