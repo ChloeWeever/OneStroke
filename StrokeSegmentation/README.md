@@ -23,12 +23,11 @@ create `/uv/uv.toml` under `~/.config/`
 add following lines to `uv.toml`:
 
 ```
-# 使用阿里云镜像源
-export UV_INDEX_URL=https://mirrors.aliyun.com/pypi/simple/
-uv pip install [包名]
-
-# 或清华大学镜像源
-export UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple/
+[[index]]
+url = "https://mirrors.aliyun.com/pypi/simple/"
+default = true
+# 或使用清华源
+# url = "https://pypi.tuna.tsinghua.edu.cn/simple/"
 ```
 ------------------------------------------------------------------------------------------------
 
