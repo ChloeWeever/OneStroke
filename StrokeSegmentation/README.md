@@ -10,7 +10,7 @@ This is the project for stroke segmentation.
 pip install uv
 ```
 
-2. Install torch for your cuda version(skip to step 3 if you don't need to train model)
+2. Install torch for your cuda version(**skip to step 3 if you don't need to train model**)
 
 - check your cuda version
 ```bash
@@ -24,6 +24,24 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 - check whether torch is installed correctly
 ```bash
 uv run torch_version.py
+```
+
+**ex.** How to change source for uv(换源)
+
+- Windows:
+create `/uv/uv.toml` under `%APPDATA%/`
+- Linux/MacOS:
+create `/uv/uv.toml` under `~/.config/`
+
+add following lines to `uv.toml`:
+
+```
+# 使用阿里云镜像源
+export UV_INDEX_URL=https://mirrors.aliyun.com/pypi/simple/
+uv pip install [包名]
+
+# 或清华大学镜像源
+export UV_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple/
 ```
 
 3. Install other dependencies
