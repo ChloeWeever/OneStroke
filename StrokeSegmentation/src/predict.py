@@ -1,9 +1,8 @@
 import os
-
 import torch
 from torchvision import transforms
 from PIL import Image
-from StrokeSegmentation.src.unet_model import UNet
+from model.unet_model import UNet
 import numpy as np
 
 
@@ -38,7 +37,7 @@ if __name__ == '__main__':
     print(f"Working directory: {os.getcwd()}")
 
 
-    img = Image.open('test.jpg').convert('RGB')
+    img = Image.open('src/test.jpg').convert('RGB')
     # 颜色取反
     # img = img.point(lambda x: 255 - x)
     # 保存
@@ -46,8 +45,8 @@ if __name__ == '__main__':
     # img = Image.open('inverted_image.jpg').convert('RGB')
     img_array = np.array(img)
 
-    predictor = UNetPredictor('../models/unet_model.pth')
-    result = predictor.predict('test.jpg')
+    predictor = UNetPredictor('models/unet_model.pth')
+    result = predictor.predict('src/test.jpg')
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组
     print(len(result))

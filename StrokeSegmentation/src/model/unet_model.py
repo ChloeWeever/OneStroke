@@ -1,5 +1,5 @@
 from torch import nn
-from StrokeSegmentation.src.model_components import DoubleConv, Down, Up, OutConv
+from model.model_components import DoubleConv, Down, Up, OutConv
 
 class UNet(nn.Module):
     def __init__(self, n_channels, n_classes=6, bilinear=True):

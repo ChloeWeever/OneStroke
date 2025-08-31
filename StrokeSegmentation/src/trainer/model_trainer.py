@@ -1,9 +1,7 @@
 import torch
-import torch.optim as optim
-from torch.optim import lr_scheduler
 import time
 import copy
-from torch.amp import autocast, GradScaler
+from torch.amp import autocast
 
 class UNetTrainer:
     def __init__(self, model, device, criterion, optimizer, scheduler):

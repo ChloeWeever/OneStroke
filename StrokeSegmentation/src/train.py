@@ -7,10 +7,10 @@ from torch import optim
 from torch.utils.data import DataLoader
 from torchvision import transforms
 
-from loss_func import WeightedBCEWithLogitsLoss
-from unet_model import UNet
-from custom_dataset import SegmentationDataset
-from model_trainer import UNetTrainer
+from utils.loss_func import WeightedBCEWithLogitsLoss
+from model.unet_model import UNet
+from trainer.custom_dataset import SegmentationDataset
+from trainer.model_trainer import UNetTrainer
 
 
 def main():
@@ -93,8 +93,8 @@ def main():
     trained_model = trainer.train(train_loader, val_loader, num_epochs=config['num_epochs'])
 
     # 保存模型
-    torch.save(trained_model.state_dict(), '../models/unet_model.pth')
-    print("Model saved as 'unet_model.pth'")
+    torch.save(trained_model.state_dict(), 'models/unet_model_new.pth')
+    print("Model saved as 'unet_model_new.pth'")
 
 
 if __name__ == '__main__':
