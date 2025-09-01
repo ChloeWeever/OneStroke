@@ -56,9 +56,9 @@ def extract_green_mask_hsv(image_path):
 if __name__ == '__main__':
     print("path: " + os.getcwd())
     for i in range(0, 40):
-        if i < 20:
-            continue
-        for j in range(0, 19):
+        for j in range(0, 21):
+            if j <= 19:
+                continue
             mask_key = np.zeros((500, 500))
             masks = [np.zeros((500, 500), dtype=bool) for _ in range(5)]
             for k in range(1, STROKE_VECTOR_MAP[i][0] + 1):

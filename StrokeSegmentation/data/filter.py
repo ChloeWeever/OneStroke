@@ -132,13 +132,13 @@ def process_all_image(prefix, start_index,
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG", "tmp.jpg")
         else:
             filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG", "tmp.jpg")
-        directory = os.path.dirname(f"data/output_img/{i + 20}/")
+        directory = os.path.dirname(f"data/output_img/{i}/")
         if not os.path.exists(directory):
             os.makedirs(directory)
-        n = get_directory_count(f"data/output_img/{i + 20}/")
-        directory = os.path.dirname(f"data/output_img/{i + 20}/{n}/")
+        n = get_directory_count(f"data/output_img/{i}/")
+        directory = os.path.dirname(f"data/output_img/{i}/{n}/")
         os.makedirs(directory)
-        process_image_to_binary("tmp.jpg", f"data/output_img/{i + 20}/{n}/0.jpg")
+        process_image_to_binary("tmp.jpg", f"data/output_img/{i}/{n}/0.jpg")
         now += 1
         if now == 4000:
             now += 1
@@ -152,10 +152,10 @@ def process_all_image(prefix, start_index,
                 for j in range(0, 4 - len(str(now))):
                     filler += '0'
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{filler}{now}.JPG",
-                                                   f"data/output_img/{i + 20}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i}/{n}/{k + 1}.jpg")
             else:
                 filter_colors_and_mark_red_centers(f"data/input_img/{prefix}{now}.JPG",
-                                                   f"data/output_img/{i + 20}/{n}/{k + 1}.jpg")
+                                                   f"data/output_img/{i}/{n}/{k + 1}.jpg")
             now += 1
             if now == 4000:
                 now += 1
@@ -166,8 +166,8 @@ if __name__ == "__main__":
     # 打印工作路径
     print("path: " + os.getcwd())
     name_strokes = []
-    strokes = [5, 4, 4, 7, 3, 6, 5, 7, 9, 7, 6, 8, 8, 15, 9, 7, 8, 6, 13, 6] + name_strokes  # 163
-    process_all_image("IMG_", 3536, strokes)
+    strokes = [5, 6, 4, 4, 11, 11, 8, 5, 4, 6, 4, 7, 4, 7, 4, 5, 4, 8, 8, 16] + name_strokes  # 163
+    process_all_image("IMG_", 4550, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
