@@ -8,5 +8,6 @@ dependencies = [
     "matplotlib>=3.10.6",
     "numpy>=2.3.2",
     "opencv-python>=4.11.0.86",
+    "pydantic-settings>=2.10.1",
     "torchvision>=0.23.0",
 ]
