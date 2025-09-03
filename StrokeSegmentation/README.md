@@ -57,10 +57,26 @@ uv sync
 
 - run train
 ```bash
-uv run train.py
+uv run src/train.py
 ```
 
 - run predict
 ```bash
-uv run predict.py
+uv run src/predict.py
+```
+
+### 5. Change settings
+
+For example, if you want to change the device to cpu:
+
+- windows powershell:
+```bash
+$env:DEVICE = "cpu"
+uv run src/train.py
+```
+
+- linux/macos terminal:
+```bash
+export DEVICE="cpu"
+uv run src/train.py
 ```
