@@ -45,7 +45,7 @@ if __name__ == '__main__':
     # img = Image.open('inverted_image.jpg').convert('RGB')
     img_array = np.array(img)
 
-    predictor = UNetPredictor('models/unet_model.pth')
+    predictor = UNetPredictor('models/unet_model_4.pth')
     result = predictor.predict('src/test.jpg')
     print(f"Prediction shape: {result.shape}")
     # 假设 result 是模型返回的 (500, 500, 6) 的 numpy 数组
