@@ -5,18 +5,8 @@ from .model_components import ConvBlock, DownSample, UpSample, FCNHead
 
 
 class FCN(nn.Module):
-    """全卷积网络(FCN)模型，用于图像分割任务"""
     
     def __init__(self, n_channels, n_classes=6, use_se=True, use_deconv=True):
-        """
-        初始化FCN模型
-        
-        参数:
-            n_channels: 输入图像的通道数
-            n_classes: 输出分割类别数
-            use_se: 是否使用SE注意力模块
-            use_deconv: 是否使用转置卷积进行上采样
-        """
         super(FCN, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
