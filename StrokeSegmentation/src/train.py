@@ -11,6 +11,7 @@ from model.unet_model import UNet
 from trainer.custom_dataset import SegmentationDataset
 from trainer.model_trainer import UNetTrainer
 from core.config import settings
+from model.other.fcn.fcn_model import FCN
 
 
 def main():
@@ -65,9 +66,17 @@ def main():
     )
 
     # 初始化模型
-    model = UNet(
-        n_channels=3, n_classes=config["num_classes"], bilinear=config["bilinear"]
-    ).to(device)
+    if settings.MODEL == "unet":
+        model = UNet(
+            n_channels=3, n_classes=config["num_classes"], bilinear=config["bilinear"]
+        ).to(device)
+    elif settings.MODEL == "fcn":
+        model = FCN(
+            n_channels=3, n_classes=config["num_classes"], use_se=True, use_deconv=True
+        ).to(device)
+    else:
+        raise ValueError("Invalid model name")
+        return
 
     # 定义损失函数和优化器
     # criterion = nn.BCEWithLogitsLoss()
