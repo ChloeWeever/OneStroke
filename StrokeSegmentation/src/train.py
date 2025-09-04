@@ -12,7 +12,7 @@ from trainer.custom_dataset import SegmentationDataset
 from trainer.model_trainer import UNetTrainer
 from core.config import settings
 from model.other.fcn.fcn_model import FCN
-
+from model.other.transUNet.transUnet_model import TransUNet
 
 def main():
     # 配置参数
@@ -74,6 +74,18 @@ def main():
         model = FCN(
             n_channels=3, n_classes=config["num_classes"], use_se=True, use_deconv=True
         ).to(device)
+    elif settings.MODEL == "transunet":
+        model = TransUNet(
+            img_size=config["image_size"][0],
+            n_channels=3,
+            n_classes=config["num_classes"],
+            embed_dim=768,
+            depth=12,
+            num_heads=12,
+            mlp_ratio=4.,
+            qkv_bias=True,
+            dropout_rate=0.1,
+        )
     else:
         raise ValueError("Invalid model name")
         return
