@@ -1,6 +1,6 @@
 from asset.stroke_vector_mapping import *
 from tools.tool import *
-import matplotlib.pyplot as plt  # 新增导入
+import matplotlib.pyplot as plt 
 
 if __name__ == '__main__':
     print("path: " + os.getcwd())

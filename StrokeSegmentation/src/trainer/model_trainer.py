@@ -2,6 +2,7 @@ import torch
 import time
 import copy
 from torch.amp import autocast
+from core.config import settings
 
 class UNetTrainer:
     def __init__(self, model, device, criterion, optimizer, scheduler):
@@ -77,7 +78,7 @@ class UNetTrainer:
 
             # 每10个epoch保存一次模型
             if (epoch + 1) % 10 == 0:
-                model_path = f'../models/checkpoint/unet_model_epoch_{epoch + 1}.pth'
+                model_path = f'models/checkpoint/{settings.MODEL}_model_epoch_{epoch + 1}.pth'
                 torch.save(self.model.state_dict(), model_path)
                 print(f'Model saved at epoch {epoch + 1} as {model_path}')
 
