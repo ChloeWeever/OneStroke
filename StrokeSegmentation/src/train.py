@@ -13,6 +13,7 @@ from trainer.model_trainer import UNetTrainer
 from core.config import settings
 from model.other.fcn.fcn_model import FCN
 from model.other.transUNet.transUnet_model import TransUNet
+from model.other.DeepLab.deeplab_model import DeepLabV3Plus
 
 def main():
     # 配置参数
@@ -86,6 +87,12 @@ def main():
             qkv_bias=True,
             dropout_rate=0.1,
         )
+    elif settings.MODEL.lower() == "deeplab":
+        model = DeepLabV3Plus(
+        n_channels=3,
+        n_classes=config["num_classes"],
+        use_se=True  # 可选，是否在 decoder 中使用 SEBlock
+    ).to(device)
     else:
         raise ValueError("Invalid model name")
         return
