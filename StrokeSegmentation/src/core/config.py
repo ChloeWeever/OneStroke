@@ -8,7 +8,7 @@ class Settings(BaseSettings):
     MODEL: str = "unet"
     SAVE_PATH: str = "models/unet_model_new.pth"
 
-    PREDICT_MODEL: str = "models/unet_model_new.pth"
+    PREDICT_MODEL: str = "models/unet_model_4.pth"
     PREDICT_INPUT: str = "src/test.jpg"
 
     def __str__(self) -> str:
