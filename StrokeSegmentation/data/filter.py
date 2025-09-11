@@ -166,8 +166,9 @@ if __name__ == "__main__":
     # 打印工作路径
     print("path: " + os.getcwd())
     name_strokes = []
-    strokes = [5, 6, 4, 4, 11, 11, 8, 5, 4, 6, 4, 7, 4, 7, 4, 5, 4, 8, 8, 16] + name_strokes  # 163
-    process_all_image("IMG_", 4550, strokes)
+    # strokes = [5, 6, 4, 4, 11, 11, 8, 5, 4, 6, 4, 7, 4, 7, 4, 5, 4, 8, 8, 16] + name_strokes  # 163
+    strokes = [5, 1, 6, 6, 10, 9]
+    process_all_image("IMG_", 4800, strokes)
     # i = 4524
     # while (i >= 4451):
     #     dir = f"data/input_img/IMG_{i}.JPG"
