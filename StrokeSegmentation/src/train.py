@@ -86,7 +86,7 @@ def main():
             mlp_ratio=4.,
             qkv_bias=True,
             dropout_rate=0.1,
-        )
+        ).to(device)
     elif settings.MODEL.lower() == "deeplab":
         model = DeepLabV3Plus(
         n_channels=3,

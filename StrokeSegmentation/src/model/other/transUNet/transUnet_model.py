@@ -77,9 +77,9 @@ class TransUNet(nn.Module):
         
         # 跳跃连接处理层
         self.skip1 = SkipConnection(64, 64)
-        self.skip2 = SkipConnection(128, 128)
-        self.skip3 = SkipConnection(256, 256)
-        self.skip4 = SkipConnection(512, 512)
+        self.skip2 = SkipConnection(128, 64)
+        self.skip3 = SkipConnection(256, 128)
+        self.skip4 = SkipConnection(512, 256)
         
         # CNN解码器部分
         self.cnn_decoder1 = UpSample(512, 256, use_deconv)
