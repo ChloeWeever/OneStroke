@@ -6,7 +6,7 @@ if __name__ == '__main__':
     print("path: " + os.getcwd())
     for i in range(0, 40):
         for j in range(0, 21):
-            if j <= 19:
+            if j < 19:
                 continue
             mask_key = np.zeros((500, 500))
             masks = [np.zeros((500, 500), dtype=bool) for _ in range(5)]
