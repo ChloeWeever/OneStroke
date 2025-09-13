@@ -11,6 +11,8 @@ class Settings(BaseSettings):
     PREDICT_MODEL: str = "models/unet_model_4.pth"
     PREDICT_INPUT: str = "src/test.jpg"
 
+    EVALUATE_MODEL: str = "models/unet_model_4.pth"
+
     def __str__(self) -> str:
         return (
             "\n----------------------------------------------------------"

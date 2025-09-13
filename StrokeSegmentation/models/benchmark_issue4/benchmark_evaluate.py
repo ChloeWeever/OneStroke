@@ -3,7 +3,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from StrokeSegmentation.predict.predict import UNetPredictor
 from evaluate import Evaluator
 from pathlib import Path
 
@@ -53,11 +52,8 @@ def plot_accuracy(weight_path: Optional[Union[str, Path, object]] = None, predic
         # 计算平均准确率
     mean_random_accuracy = np.mean(style_accuracies)
 
-    print(f"Mean style accuracy: {mean_style_accuracy:.2f}%")
-    print(f"Mean random accuracy: {mean_random_accuracy:.2f}%")
+    return {
+        "mean_style_accuracy": mean_style_accuracy,
+        "mean_random_accuracy": mean_random_accuracy
+    }
 
-
-if __name__ == "__main__":
-    model_path = Path("../models/model_5coder/unet_model.pth")
-    model = UNetPredictor(model_path)
-    plot_accuracy(model_path, model.predict)

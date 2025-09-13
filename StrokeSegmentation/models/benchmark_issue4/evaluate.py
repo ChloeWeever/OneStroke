@@ -5,8 +5,7 @@ import numpy as np
 import cv2
 from typing import List, Dict, Tuple, Callable, Optional, Union
 from pathlib import Path
-from StrokeSegmentation.predict.predict import UNetPredictor
-
+from src.predictor.unet_predictor import UNetPredictor
 
 class Evaluator(nn.Module):
     def __init__(self, base_weight=1.0, radius=5, validity_threshold: float = 0.6):
