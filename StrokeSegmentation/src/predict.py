@@ -2,7 +2,10 @@ from PIL import Image
 import numpy as np
 import os
 from core.config import settings
-from predictor.predictor import UNetPredictor, FCNPredictor, transUnetPredictor
+from predictor.transunet_predictor import transUnetPredictor
+from predictor.unet_predictor import UNetPredictor
+from predictor.fcn_predictor import FCNPredictor
+from predictor.deeplab_predictor import deeplabv3Predictor
 
 
 if __name__ == "__main__":
@@ -134,3 +137,39 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"TransUNet模型预测过程中出现错误: {e}")
             print("请确保TransUNet模型文件存在")
+            
+    elif settings.MODEL == "deeplabv3":
+        # 使用DeepLabV3+模型进行预测
+        print("\n使用DeepLabV3+模型进行预测:")
+        try:
+            deeplab_predictor = deeplabv3Predictor(settings.PREDICT_MODEL, settings.DEVICE)
+            deeplab_result = deeplab_predictor.predict(settings.PREDICT_INPUT)
+            print(f"DeepLabV3+预测结果形状: {deeplab_result.shape}")
+
+            # 保存DeepLabV3+预测结果
+            # 调整图像尺寸以匹配预测结果
+            if img_array.shape[:2] != (500, 500):
+                img = img.resize((500, 500))
+                img_array = np.array(img)
+
+            # 创建白色像素掩码
+            white_pixels = np.all(img_array >= 240, axis=-1)
+            mask_o = np.where(white_pixels, 0, 1).astype(np.uint8)
+
+            # 保存DeepLabV3+预测结果
+            deeplab_result_images = []
+            for i in range(6):
+                mask = deeplab_result[:, :, i]  # (500, 500)
+                mask = np.logical_and(mask, mask_o)
+                mask_image = (mask * 255).astype(np.uint8)
+                deeplab_result_images.append(mask_image)
+
+                # 保存DeepLabV3+预测结果
+                img = Image.fromarray(mask_image, mode="L")
+                img.save(f"deeplab_prediction_class_{i}.png")
+
+            print("DeepLabV3+预测结果已保存为 'deeplab_prediction_class_0-5.png'")
+
+        except Exception as e:
+            print(f"DeepLabV3+模型预测过程中出现错误: {e}")
+            print("请确保DeepLabV3+模型文件 'models/deeplab_model_new.pth' 存在")
